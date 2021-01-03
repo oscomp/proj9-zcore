@@ -1,10 +1,10 @@
-# proj9-zcore
+# proj9-zCore
 
-zcore这个项目是探索把现代系统语言Rust、OS级异步调用机制、Multi-Kernel机制、灵活开放的系统结构RISC-V等带入到操作系统的架构与设计的创新中来，思考未来的操作系统应该是什么样。我们希望通过这个项目为对Rust、RISC-V和操作系统感兴趣的同学营造一个活跃的学习与交流空间，吸引更多对操作系统感兴趣的同学参与。
+zCore 是用 Rust 语言重写的 Zircon 微内核。这个项目探索把现代系统语言 Rust、OS 级异步机制、Multi-Kernel 机制、灵活开放的指令集架构 RISC-V 等，带入到操作系统的设计与实现创新中来，是对未来操作系统的一种尝试。
 
-参与zcore，有很多新东西需要学习，比如Rust和RISC-V等，为此，我们已经2020年暑假与鹏城实验室合作，举办了一个os-tutorial的活动，吸引了不少学生参与，给出了一个自学指导系列教程。很多同学也积极参与，并把他们的学习过程记录了下来，以便于后来的同学进行参考，少走一些坑。
+我们希望这个项目能为对 Rust、RISC-V 和 OS 感兴趣的同学营造一个活跃的学习与交流空间，吸引更多同学参与开发。为此，我们已经在 2020 年暑假与鹏城实验室合作，举办了一个 [os-tutorial 活动](https://github.com/rcore-os/rCore/wiki/os-tutorial-summer-of-code)，给出了一个自学指导系列教程。这一活动吸引了很多同学参与，他们也将学习过程记录下来，以便于后来的同学进行参考，少踩一些坑。
 
-zcore的源码仓库：
+zCore 的源码仓库：
 
 - https://github.com/rcore-os/zCore
 
@@ -28,17 +28,15 @@ zcore的源码仓库：
 中等
 
 ### 特征
-- 基于Rust语言的操作系统
-- 在内核中充分利用Rust提供的异步机制
-- 支持google的zircon的大部分syscall
-- 支持Linux的部分syscall
-- 可运行在用户态
-- 可运行在x86, RISC-V（开发中）上
+- 基于 Rust 语言，并充分利用了 Rust 提供的异步机制
+- 支持 Zircon 微内核的大部分 syscall，以及 Linux 内核的一部分 syscall
+- 可以 LibOS 的形式运行在用户态，或以传统 OS 的形式运行在裸机上
+- 可运行在 x86_64 和 RISC-V（开发中）上
 
 ### 文档
-- [从零（不懂Rust，RISC-V等）起步基于Rust写OS的学习指导](https://github.com/rcore-os/rCore/wiki/os-tutorial-summer-of-code)
-- [zcore发布新闻](https://zhuanlan.zhihu.com/p/137733625)
-- [毕设论文和设计文档等](https://github.com/rcore-os/zCore/wiki/documents-of-zcore)
+- [从零开始基于 Rust 写 OS 的学习指导（无需 Rust 和 RISC-V 基础）](https://github.com/rcore-os/rCore/wiki/os-tutorial-summer-of-code)
+- [zCore 发布新闻](https://zhuanlan.zhihu.com/p/137733625)
+- [毕设论文和设计文档等](https://github.com/rcore-os/zCore/wiki/documents-of-zCore)
 
 
 ### License
@@ -49,26 +47,28 @@ zcore的源码仓库：
 
 ### 注意：下面的内容是建议内容，不要求必须全部完成。选择本项目的同学也可与导师联系，提出自己的新想法，如导师认可，可加入预期目标
 
-在现有zcore的基础上，进一步完成如下目标：
+在现有 zCore 的基础上，进一步完成如下目标：
 
-### 第一题：分阶段重新实现简化版zcore
+### 第一题：分阶段重新实现简化版 zCore
 
-- 与导师协商，形成一系列的小步骤，参考目前的代码，重新按小步骤实现一个简化版的zcore
-- 在每个步骤完成后，能够有测试用例，并尽量与OS课程中涉及的内容相关
-- 撰写实验设计与分析文档
+- 与导师协商，形成一系列的小步骤，参考目前的代码，重新按小步骤实现一个简化版的 zCore
+- 在每个步骤完成后，能够有测试用例，并尽量与 OS 课程中涉及的内容相关
+- 撰写实验设计与分析文档，参考：[zCore Tutorial](https://github.com/rcore-os/zCore-Tutorial)
 
-### 第二题：提供Linux内核的系统服务
-- 实现更多的Linux syscall，支持更多的Linux应用
-- 参考rCore中移植的smltcp协议栈，把它移植到zCore中，支持Linux网络应用
-- 支持virtio的各种驱动
+### 第二题：提供 Linux 内核的系统服务
+- 实现更多的 Linux syscall，支持更多的 Linux 应用
+- 参考 rCore 中集成的 smoltcp 协议栈，把它移植到 zCore 中，以支持 Linux 网络应用
+- 支持 virtio 的各种驱动
 
-### 第三题：提供zircon内核的系统服务
-- 实现更多的zircon syscall，支持更多的Fuchsia应用和服务
+### 第三题：提供 Zircon 内核的系统服务
+- 完善 Zircon syscall，支持更多的 Fuchsia 应用和服务
+- 尝试支持磁盘驱动、网卡驱动、显卡驱动以及 GUI 程序
 
-### 第四题：完善内核级异步调度机制
-- 修改OS架构，支持和完善内核级异步调度机制
+### 第四题：完善多核支持及异步调度机制
+- 完善 x86_64 多核支持，能够在多核上正确运行多线程程序
+- 修改 OS 架构，支持和完善内核级异步调度机制
 
-### 第五题：支持其他硬件
+### 第五题：支持其它指令集和硬件
 
-- 支持ARM，可以在树莓派上运行
-- 支持RISC-V，可以在K210/SIFIVE开发板上
+- 支持 ARM64，并在树莓派4上运行
+- 支持 RISC-V 64，并在 K210 或 SIFIVE 开发板上运行
